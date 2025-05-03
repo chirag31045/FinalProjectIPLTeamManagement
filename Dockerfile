@@ -3,6 +3,6 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim 
-COPY --from=build /app/target/FinalProjectIPLTeamManagement-1.0-SNAPSHOT.jar FinalProjectIPLTeamManagement.jar
+COPY --from=build /app/target/FinalProjectIPLTeamManagement-1.0.jar FinalProjectIPLTeamManagement.jar
 EXPOSE 8282
 ENTRYPOINT ["java", "-jar",  "FinalProjectIPLTeamManagement.jar"]
