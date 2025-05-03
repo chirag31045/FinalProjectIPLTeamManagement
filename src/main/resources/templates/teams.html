@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>IPL Teams</title>
+<!-- Bootstrap CSS CDN -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+	 <style>
+        body {
+            background: linear-gradient(to right, #e0f7fa, #f3e5f5);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(90deg, #8e24aa, #3949ab);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.7rem;
+            color: #fff;
+        }
+
+      
+        .neon-ribbon {
+     position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: linear-gradient(90deg, #ff6ec4, #7873f5);
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    box-shadow: 0 0 10px rgba(255, 110, 196, 0.6);
+    padding: 5px 10px;
+}
+
+.glass-logo-container {
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.15), rgba(255, 0, 255, 0.15));
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-radius: 20px;
+    margin: 0 20px 10px;
+    height: 200px;
+    overflow: hidden;
+    box-shadow: 0 0 20px 8px rgba(123, 104, 238, 0.5); /* deep purple glow */
+    border: 3px solid rgba(255, 255, 255, 0.3); /* soft glassy border */
+    transition: all 0.4s ease;
+}
+
+.btn-unique-glow {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 114, 255, 0.5);
+    transition: 0.4s ease;
+}
+
+.btn-unique-glow:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    box-shadow: 0 0 20px rgba(0, 114, 255, 0.7);
+    transform: scale(1.05);
+}
+
+        footer {
+            background: linear-gradient(90deg, #3949ab, #8e24aa);
+        }
+
+        footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            🏆 IPL Portal
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+               <li class="nav-item"><a class="nav-link" href="/teams">🏏 Teams</a></li>
+                <li class="nav-item"><a class="nav-link" href="/players">👥 Players</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+	<div class="container mt-5">
+	  <h1 class="text-center text-dark mb-4">Explore Your Favorite IPL Teams</h1>
+
+		<form th:action="@{/teams/search}" method="get"
+			class="input-group mb-4">
+			 <input type="text" name="keyword" class="form-control shadow-sm" placeholder="🔍 Search players by name or team">
+        <button class="btn btn-unique-glow" type="submit"><i class="fas fa-search me-1"></i> Search</button>
+			 <a class="btn btn-success ms-2" th:href="@{/teams/new}">➕ Add Team</a>
+		</form>
+
+<div class="row row-cols-1 row-cols-md-3 g-4" th:if="${teams != null}">
+    <div class="col" th:each="team : ${teams}">
+        <div class="card h-100 shadow-lg border-0 rounded-5 team-card position-relative overflow-hidden"
+         style="background: linear-gradient(135deg, #ffecd2, #fcb69f); transition: all 0.5s ease;">
+
+            <!-- Ribbon Badge -->
+             <div class="position-absolute top-0 start-0 px-3 py-1 neon-ribbon shadow-sm">
+            🔥 IPL Team
+        </div>
+
+            <!-- Team Logo -->
+           <div class="glass-logo-container d-flex justify-content-center align-items-center p-4">
+            <img th:src="${team.logo}" alt="Team Logo"
+                 class="img-fluid" style="height: 180px; object-fit: contain;">
+        </div>
+
+            <!-- Card Body -->
+            <div class="card-body text-center">
+                <h4 class="card-title fw-bold text-gradient" th:text="${team.name}"></h4>
+						<p class="text-muted mb-1" th:text="'🎓 Coach: ' + ${team.coach}"></p>
+						<p class="text-muted mb-1" th:text="'👑 Owner: ' + ${team.owner}"></p>
+						<p class="text-muted mb-3"
+							th:text="'🏆 Matches Won: ' + ${team.totalMatchesWon}"></p>
+						<!-- Buttons -->
+                <div class="d-grid gap-2">
+                    <a th:href="@{/teams/{id}/players(id=${team.id})}" class="btn btn-primary btn-sm px-4 rounded-pill shadow-sm">
+                        👥 View Players
+                    </a>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+		
+		
+
+		<div th:if="${teams == null || #lists.isEmpty(teams)}"
+			class="text-center"> 
+			<p class="text-muted">No teams available.</p>
+		</div>
+	</div>
+
+	<footer class="text-white text-center p-4 mt-5">
+    <div class="mb-2">
+        Follow us:
+        <a href="#">Facebook</a> |
+        <a href="#">Instagram</a> |
+        <a href="#">Twitter</a>
+    </div>
+    <div>© 2025 IPL Portal. All rights reserved.</div>
+</footer>
+
+
+	<!-- Bootstrap JS Bundle (Optional if you need interactivity) -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
