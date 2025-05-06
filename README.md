@@ -84,3 +84,35 @@ This project follows a **Layered MVC Architecture** for clear separation of conc
 1. ⬇️ Clone the repository:  
    ```bash
    git clone https://github.com/chirag31045/FinalProjectIPLTeamManagement.git
+2. 📦 Import into Spring Tool Suite (STS) or IntelliJ IDEA
+
+
+3. 🛠️ Configure your MySQL database and update credentials in application.properties
+
+
+4. ▶️ Run the application:
+
+mvn spring-boot:run
+
+
+5. 🌐 Open in browser:
+http://localhost:8080
+
+
+
+
+---
+
+💡 Future Enhancements
+
+🔐 Role-based access (Admin/User)
+
+🔗 REST API support
+
+🧮 Pagination and Sorting
+
+☁️ Upload images to AWS S3 or cloud storage
+
+
+
+---
