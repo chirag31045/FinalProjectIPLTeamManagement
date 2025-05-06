@@ -129,42 +129,145 @@ upload-dir configured in application.properties
 Static resource mapping in WebMvcConfigurer (if used)
 
 
-
 ---
 
-4. 🏠 Home/Dashboard Module (com.yourapp.home)
+🧩 Project Modules
 
-Responsibilities:
-
-Manage landing page and dashboard view
-
-Provide navigation to teams and players
-
-
-Components:
-
-HomeController.java
-
-index.html, dashboard.html
-
+The IPL Team Management System is structured using a layered modular design to enhance clarity, maintainability, and scalability. Below is a breakdown of all major modules:
 
 
 ---
 
-5. 🧰 Shared/Utility Module (com.yourapp.common or com.yourapp.util)
+🔹 1. Team Module com.yourapp.team
 
-Responsibilities:
-
-Common utilities and reusable helper methods
-
-Global exception handling and logging
+> Purpose: Manage IPL teams and display essential team information.
 
 
-Components:
 
-Utility classes (e.g., image validator, formatter)
+✅ Responsibilities
 
-GlobalExceptionHandler.java (if implemented)
+Perform full CRUD operations on teams
+
+Upload & display team logos
+
+Show team details like Coach, Owner, and Matches Won
+
+
+🧱 Components
+
+File/Class	Description
+
+Team.java	JPA entity representing a team
+TeamRepository.java	Data access layer using Spring Data JPA
+TeamService.java / TeamServiceImpl.java	Business logic for team operations
+TeamController.java	Handles HTTP requests for teams
+team.html	Thymeleaf view for team management
+
+
+
+---
+
+🔹 2. Player Module com.yourapp.player
+
+> Purpose: Manage players associated with IPL teams.
+
+
+
+✅ Responsibilities
+
+CRUD operations for players linked to specific teams
+
+Upload & render player profile images
+
+Display player stats like net worth, matches played, runs, and bio
+
+
+🧱 Components
+
+File/Class	Description
+
+Player.java	Entity class for player details
+PlayerRepository.java	Interface for player data persistence
+PlayerService.java / PlayerServiceImpl.java	Business logic for player operations
+PlayerController.java	REST/controller layer for player requests
+player.html	View template to add/edit/view players
+
+
+
+---
+
+🔹 3. File Upload Module com.yourapp.upload
+
+> Purpose: Handle image uploads and serve static content.
+
+
+
+✅ Responsibilities
+
+Handle file uploads via MultipartFile
+
+Serve images from local directory or static resource path
+
+
+🧱 Components
+
+File/Class	Description
+
+File upload code	Embedded in TeamController and PlayerController
+application.properties	Configures upload-dir path
+Static Mapping	Enables serving images via /images/** path
+
+
+
+---
+
+🔹 4. Home/Dashboard Module com.yourapp.home
+
+> Purpose: Provide dashboard views and site navigation.
+
+
+
+✅ Responsibilities
+
+Render the landing page and dashboard
+
+Link to teams, players, and overall stats summary
+
+
+🧱 Components
+
+File/Class	Description
+
+HomeController.java	Controls homepage and dashboard routing
+index.html, dashboard.html	Templates for the homepage and summary
+
+
+
+---
+
+🔹 5. Utility/Shared Module com.yourapp.util or com.yourapp.common
+
+> Purpose: House reusable logic and common configurations.
+
+
+
+✅ Responsibilities
+
+Global exception handling
+
+Utility methods for image validation, filename parsing, etc.
+
+
+🧱 Components
+
+File/Class	Description
+
+GlobalExceptionHandler.java	Manages app-wide exceptions using @ControllerAdvice
+Utility classes	Reusable helpers for file/image management and validations
+
+
+
+---
 
 
 ## 🧠 **System Design & Architecture**
