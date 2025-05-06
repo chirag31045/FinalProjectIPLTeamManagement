@@ -50,6 +50,123 @@ A full-stack **IPL Team Management Web Application** built using **Spring Boot**
 
 ---
 
+🧩 Project Modules
+
+This application is organized into functional modules for better separation of concerns and maintainability:
+
+
+---
+
+1. 🧑‍🤝‍🧑 Team Module (com.yourapp.team)
+
+Responsibilities:
+
+Manage IPL team entities (Create, Read, Update, Delete)
+
+Upload and display team logos
+
+View team details: Coach, Owner, Matches Won
+
+
+Components:
+
+Team.java (Entity)
+
+TeamRepository.java
+
+TeamService.java / TeamServiceImpl.java
+
+TeamController.java
+
+team.html (Thymeleaf View)
+
+
+
+---
+
+2. 🏏 Player Module (com.yourapp.player)
+
+Responsibilities:
+
+CRUD operations for players under teams
+
+Upload player profile images
+
+Display player statistics: Net Worth, Runs, Matches, Biography
+
+
+Components:
+
+Player.java (Entity)
+
+PlayerRepository.java
+
+PlayerService.java / PlayerServiceImpl.java
+
+PlayerController.java
+
+player.html (Thymeleaf View)
+
+
+
+---
+
+3. 📁 File Upload Module (com.yourapp.upload)
+
+Responsibilities:
+
+Upload images for players and teams
+
+Serve uploaded files from static directories
+
+
+Components:
+
+File upload logic within TeamController and PlayerController
+
+upload-dir configured in application.properties
+
+Static resource mapping in WebMvcConfigurer (if used)
+
+
+
+---
+
+4. 🏠 Home/Dashboard Module (com.yourapp.home)
+
+Responsibilities:
+
+Manage landing page and dashboard view
+
+Provide navigation to teams and players
+
+
+Components:
+
+HomeController.java
+
+index.html, dashboard.html
+
+
+
+---
+
+5. 🧰 Shared/Utility Module (com.yourapp.common or com.yourapp.util)
+
+Responsibilities:
+
+Common utilities and reusable helper methods
+
+Global exception handling and logging
+
+
+Components:
+
+Utility classes (e.g., image validator, formatter)
+
+GlobalExceptionHandler.java (if implemented)
+
+
 ## 🧠 **System Design & Architecture**
 
 This project follows a **Layered MVC Architecture** for clear separation of concerns and scalability:
